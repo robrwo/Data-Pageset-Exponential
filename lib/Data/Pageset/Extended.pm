@@ -5,6 +5,7 @@ use Moo;
 use List::Util qw/ all min /;
 use PerlX::Maybe;
 use POSIX qw/ ceil floor /;
+use MooX::TypeTiny;
 use Types::Common::Numeric qw/ PositiveOrZeroInt PositiveInt /;
 use Types::Standard qw/ is_Int Int /;
 

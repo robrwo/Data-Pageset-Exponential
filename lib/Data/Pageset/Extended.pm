@@ -125,14 +125,35 @@ sub skipped {
         : 0;
 }
 
-sub change_entries_per_page {
-    my ( $self, $value ) = @_;
+around entries_per_page => sub {
+    my $next = shift;
+    my $self = shift;
 
-    my $first = $self->first;
+    if (@_) {
+
+        my $value = shift;
+
+        my $first = $self->first;
+
+        $self->$next($value);
+
+        $self->current_page( $self->first_page + $first / $value );
+
+        return $value;
+    }
+    else {
+
+        return $self->$next;
+
+    }
+};
+
+sub change_entries_per_page {
+    my ($self, $value) = @_;
 
     $self->entries_per_page($value);
 
-    return $self->current_page( $self->first_page + $first / $value );
+    return $self->current_page;
 }
 
 sub BUILDARGS {

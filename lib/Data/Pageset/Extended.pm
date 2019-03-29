@@ -126,6 +126,9 @@ sub skipped {
         : 0;
 }
 
+# Ideally, we'd use a trigger instead, but Moo does not pass the old
+# value to a trigger.
+
 around entries_per_page => sub {
     my $next = shift;
     my $self = shift;

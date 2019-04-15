@@ -13,6 +13,8 @@ use Types::Standard qw/ is_Int Int /;
 
 use namespace::autoclean;
 
+our $VERSION = 'v0.1.0';
+
 has total_entries => (
     is      => 'rw',
     isa     => PositiveOrZeroInt,

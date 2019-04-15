@@ -1,5 +1,7 @@
 package Data::Pageset::Extended;
 
+use v5.10.1;
+
 use Moo;
 
 use List::Util qw/ all min /;
@@ -174,6 +176,14 @@ sub BUILDARGS {
     }
 
     return {@args};
+}
+
+sub isa {
+    my ($self, $class) = @_;
+
+    state $classes = { map { $_ => 1 } qw/ Data::Page / };
+
+    return $classes->{$class} || $self->UNIVERSAL::isa($class);
 }
 
 1;

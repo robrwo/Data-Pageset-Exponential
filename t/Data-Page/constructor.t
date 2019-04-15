@@ -5,12 +5,12 @@ use Test::Exception;
 use_ok('Data::Pageset::Extended');
 
 my $page = Data::Pageset::Extended->new(7, 10, 12);
-isa_ok($page, 'Data::Pageset::Extended');
+isa_ok($page, 'Data::Page', 'Data::Pageset::Extended');
 
 is($page->first_page, 1, "Adjusted to first possible page");
 
 $page = Data::Pageset::Extended->new(0, 10, -1);
-isa_ok($page, 'Data::Pageset::Extended');
+isa_ok($page, 'Data::Page', 'Data::Pageset::Extended');
 
 is($page->first_page, 1, "Adjusted to first possible page");
 

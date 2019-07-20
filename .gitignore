@@ -1,2 +1,4 @@
 tmp/*
 .build/
+Data-Pageset-Exponential-*.tar.gz
+Data-Pageset-Exponential-*/

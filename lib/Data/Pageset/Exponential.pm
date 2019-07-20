@@ -15,7 +15,7 @@ use Types::Standard qw/ is_Int Int ArrayRef /;
 
 use namespace::autoclean;
 
-our $VERSION = 'v0.1.1';
+our $VERSION = 'v0.2.0';
 
 =head1 SYNOPSIS
 

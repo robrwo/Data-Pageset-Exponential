@@ -53,10 +53,10 @@ has exponent_max => (
     default => 3,
 );
 
-has exponent_ratio => (
+has pages_per_exponent => (
     is      => 'ro',
     isa     => PositiveInt,
-    default => 2,
+    default => 5,
 );
 
 has max_pages_per_set => (
@@ -65,8 +65,7 @@ has max_pages_per_set => (
     builder => sub {
         my ($self) = @_;
         use integer;
-        my $n = $self->exponent_base *
-            ( $self->exponent_max + 1 ) / $self->exponent_ratio;
+        my $n = $self->pages_per_exponent * ( $self->exponent_max + 1 );
         return ($n - 1) * 2 + 1;
     },
 );
@@ -76,31 +75,29 @@ has series => (
     isa     => ArrayRef [Int],
     builder => sub {
         my ($self) = @_;
+
         use integer;
 
         my @series;
 
         my $n = $self->exponent_base;
         my $m = $self->exponent_max;
-        my $r = $self->exponent_ratio;
 
         my $j = 0;
         while ( $j <= $m ) {
 
-            my $a = $n**$j;
-            my $i = $a;
+            my $i = $n**$j;
+            my $a = $i;
+            my $p = $self->pages_per_exponent;
 
-            while ( ( $r * $i ) <= $n**( $j + 1 ) ) {
-                push @series, $i - 1;
-                $i += $a;
+            while ( $p-- ) {
+                push @series, $a - 1;
+                $a += $i;
             }
 
             $j++;
 
         }
-
-        my $half = floor($self->max_pages_per_set / 2);
-        splice( @series, $half + 1 );
 
         my @prevs = map { -$_ } reverse @series[1..$#series];
 

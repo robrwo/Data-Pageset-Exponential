@@ -453,6 +453,10 @@ L<Data::Pageset>
 
 =back
 
+=head1 append:AUTHOR
+
+Test code was adapted from L<Data::Page> to ensure compatability.
+
 =cut
 
 1;

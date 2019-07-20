@@ -4,6 +4,8 @@ Revision history for {{ $dist->name }}:
   [Documentation]
   - Add Pod::Weaver configuration to properly build POD.
 
+  - Added acknowledgement for test code.
+
   [Other Changes]
   - removed integer from prereqs list, since it is core.
 

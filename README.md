@@ -148,6 +148,8 @@ feature.
 
 Robert Rothenberg <rrwo@cpan.org>
 
+Test code was adapted from [Data::Page](https://metacpan.org/pod/Data::Page) to ensure compatability.
+
 # COPYRIGHT AND LICENSE
 
 This software is Copyright (c) 2018-2019 by Robert Rothenberg.

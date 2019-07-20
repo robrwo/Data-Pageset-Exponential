@@ -25,27 +25,26 @@ is $pager->current_page, 3, 'current_page';
 
 is $pager->first, 11, 'first';
 
-
 is $pager->total_entries(1200), 1200, 'set total_entries';
 is $pager->last_page, 240, 'last_page';
 is $pager->current_page(1), 1, 'set current_page';
 
 is_deeply $pager->series, [
-    -4999,  -3999, -2999, -1999, -999,    #
-      -499, -399,  -299,  -199,  -99,     #
-      -49,  -39,   -29,   -19,   -9,      #
-      -4 .. 4,                            #
-      9,   19,   29,   39,   49,          #
-      99,  199,  299,  399,  499,         #
-      999, 1999, 2999, 3999, 4999,        #
-      ],
+    -2999, -1999, -999,    #
+    -299,  -199,  -99,     #
+    -29,   -19,   -9,      #
+    -2 .. 2,               #
+    9,   19,   29,         #
+    99,  199,  299,        #
+    999, 1999, 2999,       #
+  ],
   'series';
 
-is $pager->max_pages_per_set => 39, 'pages_per_set';
+is $pager->max_pages_per_set => 23, 'pages_per_set';
 
 is_deeply $pager->pages_in_set, [
-    1 .. 5,    #
-    10, 20, 30, 40, 50,    #
+    1 .. 3,                #
+    10, 20, 30,            #
     100, 200               #
   ],
   'pages_in_set';
@@ -53,12 +52,11 @@ is_deeply $pager->pages_in_set, [
 is $pager->current_page(50), 50, 'set current_page';
 
 is_deeply $pager->pages_in_set, [
-    1, 11, 21, 31, 41, #
-    46.. 54, #
-    59, 69, 79, 89, 99, #
-    149, #
+    21, 31, 41,            #
+    48 .. 52,              #
+    59, 69, 79,            #
+    149,                   #
   ],
   'pages_in_set';
-
 
 done_testing;

@@ -56,7 +56,7 @@ has exponent_max => (
 has pages_per_exponent => (
     is      => 'ro',
     isa     => PositiveInt,
-    default => 5,
+    default => 3,
 );
 
 has max_pages_per_set => (

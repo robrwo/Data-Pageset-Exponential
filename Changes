@@ -1,6 +1,8 @@
 Revision history for {{ $dist->name }}:
 
 {{$NEXT}}
+
+v0.2.0    2019-07-20 14:46:54+01:00 Europe/London
   [Enhancements]
   - Add previous_set and next_set methods.
 

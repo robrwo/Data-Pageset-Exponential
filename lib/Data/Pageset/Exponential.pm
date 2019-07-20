@@ -1,5 +1,7 @@
 package Data::Pageset::Exponential;
 
+# ABSTRACT: Page numbering for very large page numbers
+
 use v5.10.1;
 
 use Moo;
@@ -15,11 +17,50 @@ use namespace::autoclean;
 
 our $VERSION = 'v0.1.0';
 
+=head1 SYNOPSIS
+
+  my $pager = Data::Pageset::Exponential->new(
+    total_entries => $total_entries,
+    entries_per_page => $per_page,
+  );
+
+  $pager->current_page( 1 );
+
+  my $pages = $pager->pages_in_set;
+
+  # Returns
+  # [ 1, 2, 3, 10, 20, 30, 100, 200, 300, 1000, 2000, 3000 ]
+
+=head1 DESCRIPTION
+
+This is a pager designed for paging through resultsets that contain
+hundreds if not thousands of pages.
+
+The interface is similar to L<Data::Pageset> with sliding pagesets.
+
+=head1 ATTRIBUTES
+
+=head2 C<total_entries>
+
+This is the total number of entries.
+
+It is a read/write attribute.
+
+=cut
+
 has total_entries => (
     is      => 'rw',
     isa     => PositiveOrZeroInt,
     default => 0,
 );
+
+=head2 C<entries_per_page>
+
+This is the total number of entries per page. It defaults to C<10>.
+
+It is a read/write attribute.
+
+=cut
 
 has entries_per_page => (
     is      => 'rw',
@@ -27,11 +68,25 @@ has entries_per_page => (
     default => 10,
 );
 
+=head2 C<first_page>
+
+This returns the first page. It defaults to C<1>.
+
+=cut
+
 has first_page => (
     is      => 'ro',
     isa     => Int,
     default => 1,
 );
+
+=head2 C<current_page>
+
+This is the current page number. It defaults to the L</first_page>.
+
+It is a read/write attribute.
+
+=cut
 
 has current_page => (
     is      => 'rw',
@@ -41,11 +96,30 @@ has current_page => (
     coerce  => sub { floor( $_[0] // 0 ) },
 );
 
+=head2 C<exponent_base>
+
+This is the base exponent for page sets. It defaults to C<10>.
+
+=cut
+
 has exponent_base => (
     is      => 'ro',
     isa     => PositiveInt,
     default => 10,
 );
+
+=head2 C<exponent_max>
+
+This is the maximum exponent for page sets. It defaults to C<3>, for
+pages in the thousands.
+
+It should not be greater than
+
+    ceil( log( $total_pages ) / log(10) )
+
+however, larger numbers will increase the size of L</pages_in_set>.
+
+=cut
 
 has exponent_max => (
     is      => 'ro',
@@ -53,11 +127,30 @@ has exponent_max => (
     default => 3,
 );
 
+=head2 C<pages_per_exponent>
+
+This is the number of pages per exponent. It defaults to C<3>.
+
+=cut
+
 has pages_per_exponent => (
     is      => 'ro',
     isa     => PositiveInt,
     default => 3,
 );
+
+=head2 C<max_pages_per_set>
+
+This is the maximum number of pages in L</page_set>. It defaults
+to
+
+  1 + 2 * ( $pages_per_exponent * ( $exponent_max + 1 ) - 1 )
+
+which for the default values is 23.
+
+This should be an odd number.
+
+=cut
 
 has max_pages_per_set => (
     is      => 'lazy',
@@ -69,6 +162,10 @@ has max_pages_per_set => (
         return ($n - 1) * 2 + 1;
     },
 );
+
+=for Pod::Coverage series
+
+=cut
 
 has series => (
     is      => 'lazy',
@@ -106,6 +203,10 @@ has series => (
     },
 );
 
+=head1 METHODS
+
+=cut
+
 around current_page => sub {
     my $next = shift;
     my $self = shift;
@@ -122,6 +223,12 @@ around current_page => sub {
     return $page;
 };
 
+=head2 C<entries_on_this_page>
+
+Returns the number of entries on the page.
+
+=cut
+
 sub entries_on_this_page {
     my ($self) = @_;
 
@@ -133,12 +240,24 @@ sub entries_on_this_page {
     }
 }
 
+=head2 C<last_page>
+
+Returns the number of the last page.
+
+=cut
+
 sub last_page {
     my ($self) = @_;
     return $self->total_entries
       ? ceil( $self->total_entries / $self->entries_per_page )
       : $self->first_page;
 }
+
+=head2 C<first>
+
+Returns the index of the first entry on the L</current_page>.
+
+=cut
 
 sub first {
     my ($self) = @_;
@@ -150,6 +269,12 @@ sub first {
     }
 }
 
+=head2 C<last>
+
+Returns the index of the last entry on the L</current_page>.
+
+=cut
+
 sub last {
     my ($self) = @_;
     if ( $self->current_page == $self->last_page ) {
@@ -160,6 +285,12 @@ sub last {
     }
 }
 
+=head2 C<previous_page>
+
+Returns the number of the previous page.
+
+=cut
+
 sub previous_page {
     my ($self) = @_;
     my $page = $self->current_page;
@@ -168,6 +299,12 @@ sub previous_page {
       ? $page - 1
       : undef;
 }
+
+=head2 C<next_page>
+
+Returns the number of the next page.
+
+=cut
 
 sub next_page {
     my ($self) = @_;
@@ -178,6 +315,10 @@ sub next_page {
       : undef;
 }
 
+=for Pod::Coverage splice
+
+=cut
+
 sub splice {
     my ( $self, $items ) = @_;
 
@@ -187,6 +328,10 @@ sub splice {
       ? @{$items}[ $self->first - 1 .. $last - 1 ]
       : ();
 }
+
+=for Pod::Coverage skipped
+
+=cut
 
 sub skipped {
     my ($self) = @_;
@@ -221,6 +366,12 @@ around entries_per_page => sub {
     }
 };
 
+=head2 C<pages_in_set>
+
+Returns an array reference of pages in the page set.
+
+=cut
+
 sub pages_in_set {
     my ($self) = @_;
 
@@ -236,6 +387,10 @@ sub pages_in_set {
     ];
 }
 
+=for Pod::Coverage change_entries_per_page
+
+=cut
+
 sub change_entries_per_page {
     my ($self, $value) = @_;
 
@@ -243,6 +398,10 @@ sub change_entries_per_page {
 
     return $self->current_page;
 }
+
+=for Pod::Coverage BUILDARGS
+
+=cut
 
 sub BUILDARGS {
     my ( $class, @args ) = @_;
@@ -260,6 +419,10 @@ sub BUILDARGS {
     return {@args};
 }
 
+=for Pod::Coverage isa
+
+=cut
+
 sub isa {
     my ($self, $class) = @_;
 
@@ -267,5 +430,29 @@ sub isa {
 
     return $classes->{$class} || $self->UNIVERSAL::isa($class);
 }
+
+=head1 KNOWN ISSUES
+
+=head2 Fake @ISA
+
+This module is based on a complete rewrite of L<Data::Page> using
+L<Moo>, rather than extending it.  Because of that, it needs to fake
+L<@ISA>.  This may break some applications.
+
+=head1 SEE ALSO
+
+=over
+
+=item *
+
+L<Data::Page>
+
+=item *
+
+L<Data::Pageset>
+
+=back
+
+=cut
 
 1;

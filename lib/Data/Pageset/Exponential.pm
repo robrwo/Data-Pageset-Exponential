@@ -141,7 +141,7 @@ has pages_per_exponent => (
 
 =head2 C<max_pages_per_set>
 
-This is the maximum number of pages in L</page_set>. It defaults
+This is the maximum number of pages in L</pages_in_set>. It defaults
 to
 
   1 + 2 * ( $pages_per_exponent * ( $exponent_max + 1 ) - 1 )
@@ -437,7 +437,7 @@ sub isa {
 
 This module is based on a complete rewrite of L<Data::Page> using
 L<Moo>, rather than extending it.  Because of that, it needs to fake
-L<@ISA>.  This may break some applications.
+C<@ISA>.  This may break some applications.
 
 =head1 SEE ALSO
 

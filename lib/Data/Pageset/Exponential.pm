@@ -387,6 +387,42 @@ sub pages_in_set {
     ];
 }
 
+=head2 C<previous_set>
+
+This returns the first page number of the previous page set, for the
+first exponent.
+
+It is added for compatability with L<Data::Pageset>.
+
+=cut
+
+sub previous_set {
+    my ($self) = @_;
+
+    my $page = $self->current_page - (2 * $self->pages_per_exponent) - 1;
+    return $page < $self->first_page
+        ? undef
+        : $page;
+}
+
+=head2 C<next_set>
+
+This returns the first page number of the next page set, for the first
+exponent.
+
+It is added for compatability with L<Data::Pageset>.
+
+=cut
+
+sub next_set {
+    my ($self) = @_;
+
+    my $page = $self->current_page + (2 * $self->pages_per_exponent) - 1;
+    return $page > $self->last_page
+        ? undef
+        : $page;
+}
+
 =for Pod::Coverage change_entries_per_page
 
 =cut

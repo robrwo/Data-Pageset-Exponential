@@ -1,6 +1,9 @@
 Revision history for {{ $dist->name }}:
 
 {{$NEXT}}
+  [Enhancements]
+  - Add previous_set and next_set methods.
+
   [Documentation]
   - Add Pod::Weaver configuration to properly build POD.
 

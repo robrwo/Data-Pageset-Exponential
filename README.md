@@ -117,6 +117,20 @@ Returns the number of the next page.
 
 Returns an array reference of pages in the page set.
 
+## `previous_set`
+
+This returns the first page number of the previous page set, for the
+first exponent.
+
+It is added for compatability with [Data::Pageset](https://metacpan.org/pod/Data::Pageset).
+
+## `next_set`
+
+This returns the first page number of the next page set, for the first
+exponent.
+
+It is added for compatability with [Data::Pageset](https://metacpan.org/pod/Data::Pageset).
+
 # KNOWN ISSUES
 
 ## Fake @ISA

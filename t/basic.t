@@ -49,6 +49,9 @@ is_deeply $pager->pages_in_set, [
   ],
   'pages_in_set';
 
+is $pager->next_set, 6, 'next_set';
+is $pager->previous_set, undef, 'previous_set';
+
 is $pager->current_page(50), 50, 'set current_page';
 
 is_deeply $pager->pages_in_set, [
@@ -58,5 +61,8 @@ is_deeply $pager->pages_in_set, [
     149,                   #
   ],
   'pages_in_set';
+
+is $pager->next_set, 55, 'next_set';
+is $pager->previous_set, 43, 'previous_set';
 
 done_testing;

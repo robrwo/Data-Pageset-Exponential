@@ -1,6 +1,9 @@
 Revision history for {{ $dist->name }}:
 
 {{$NEXT}}
+  [Documentation]
+  - Add Pod::Weaver configuration to properly build POD.
+
   [Other Changes]
   - removed integer from prereqs list, since it is core.
 

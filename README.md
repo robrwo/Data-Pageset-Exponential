@@ -130,6 +130,20 @@ This module is based on a complete rewrite of [Data::Page](https://metacpan.org/
 - [Data::Page](https://metacpan.org/pod/Data::Page)
 - [Data::Pageset](https://metacpan.org/pod/Data::Pageset)
 
+# SOURCE
+
+The development version is on github at [https://github.com/robrwo/Data-Pageset-Exponential](https://github.com/robrwo/Data-Pageset-Exponential)
+and may be cloned from [git://github.com/robrwo/Data-Pageset-Exponential.git](git://github.com/robrwo/Data-Pageset-Exponential.git)
+
+# BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+[https://github.com/robrwo/Data-Pageset-Exponential/issues](https://github.com/robrwo/Data-Pageset-Exponential/issues)
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
 # AUTHOR
 
 Robert Rothenberg <rrwo@cpan.org>

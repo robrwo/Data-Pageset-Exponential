@@ -1,6 +1,8 @@
 Revision history for {{ $dist->name }}:
 
 {{$NEXT}}
+  [Other Changes]
+  - removed integer from prereqs list, since it is core.
 
 v0.1.0    2019-07-20 14:10:11+01:00 Europe/London
  - Initial release.

@@ -9,7 +9,7 @@ use PerlX::Maybe;
 use POSIX qw/ ceil floor /;
 use MooX::TypeTiny;
 use Types::Common::Numeric qw/ PositiveOrZeroInt PositiveInt /;
-use Types::Standard qw/ is_Int Int /;
+use Types::Standard qw/ is_Int Int ArrayRef /;
 
 use namespace::autoclean;
 
@@ -39,6 +39,74 @@ has current_page => (
     lazy    => 1,
     default => \&first_page,
     coerce  => sub { floor( $_[0] // 0 ) },
+);
+
+has exponent_base => (
+    is      => 'ro',
+    isa     => PositiveInt,
+    default => 10,
+);
+
+has exponent_max => (
+    is      => 'ro',
+    isa     => PositiveInt,
+    default => 3,
+);
+
+has exponent_ratio => (
+    is      => 'ro',
+    isa     => PositiveInt,
+    default => 2,
+);
+
+has max_pages_per_set => (
+    is      => 'lazy',
+    isa     => PositiveInt,
+    builder => sub {
+        my ($self) = @_;
+        use integer;
+        my $n = $self->exponent_base *
+            ( $self->exponent_max + 1 ) / $self->exponent_ratio;
+        return ($n - 1) * 2 + 1;
+    },
+);
+
+has series => (
+    is      => 'lazy',
+    isa     => ArrayRef [Int],
+    builder => sub {
+        my ($self) = @_;
+        use integer;
+
+        my @series;
+
+        my $n = $self->exponent_base;
+        my $m = $self->exponent_max;
+        my $r = $self->exponent_ratio;
+
+        my $j = 0;
+        while ( $j <= $m ) {
+
+            my $a = $n**$j;
+            my $i = $a;
+
+            while ( ( $r * $i ) <= $n**( $j + 1 ) ) {
+                push @series, $i - 1;
+                $i += $a;
+            }
+
+            $j++;
+
+        }
+
+        my $half = floor($self->max_pages_per_set / 2);
+        splice( @series, $half + 1 );
+
+        my @prevs = map { -$_ } reverse @series[1..$#series];
+
+
+        return [@prevs, @series];
+    },
 );
 
 around current_page => sub {
@@ -155,6 +223,21 @@ around entries_per_page => sub {
 
     }
 };
+
+sub pages_in_set {
+    my ($self) = @_;
+
+    use integer;
+
+    my $first = $self->first_page;
+    my $last  = $self->last_page;
+    my $page  = $self->current_page;
+
+    return [
+        grep { $first <= $_ && $_ <= $last }
+        map { $page + $_ } @{ $self->series }
+    ];
+}
 
 sub change_entries_per_page {
     my ($self, $value) = @_;

@@ -1,4 +1,4 @@
-package Data::Pageset::Extended;
+package Data::Pageset::Exponential;
 
 use v5.10.1;
 

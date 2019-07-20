@@ -1,6 +1,6 @@
 use strict;
 use Test::More tests => 843;
-use_ok('Data::Pageset::Extended');
+use_ok('Data::Pageset::Exponential');
 
 my $name;
 
@@ -17,11 +17,11 @@ foreach my $line (<DATA>) {
     my @vals = map { /^undef$/ ? undef : /^''$/ ? '' : $_ } split /\s+/,
         $line;
 
-    my $page = Data::Pageset::Extended->new( @vals[ 0, 1, 2 ] );
+    my $page = Data::Pageset::Exponential->new( @vals[ 0, 1, 2 ] );
     print "Old style\n";
     check( $page, $name, @vals );
 
-    $page = Data::Pageset::Extended->new();
+    $page = Data::Pageset::Exponential->new();
     $page->total_entries( $vals[0] );
     $page->entries_per_page( $vals[1] );
     $page->current_page( $vals[2] );
@@ -29,15 +29,15 @@ foreach my $line (<DATA>) {
     check( $page, $name, @vals );
 }
 
-my $page = Data::Pageset::Extended->new( 0, 10 );
-isa_ok( $page, 'Data::Pageset::Extended' );
+my $page = Data::Pageset::Exponential->new( 0, 10 );
+isa_ok( $page, 'Data::Pageset::Exponential' );
 my @empty;
 my @spliced = $page->splice( \@empty );
 is( scalar(@spliced), 0, "Splice on empty is empty" );
 
 sub check {
     my ( $page, $name, @vals ) = @_;
-    isa_ok( $page, 'Data::Pageset::Extended' );
+    isa_ok( $page, 'Data::Pageset::Exponential' );
 
     is( $page->first_page,    $vals[3], "$name: first page" );
     is( $page->last_page,     $vals[4], "$name: last page" );

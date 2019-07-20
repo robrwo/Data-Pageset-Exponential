@@ -2,9 +2,9 @@
 
 use Test::More;
 
-use_ok('Data::Pageset::Extended');
+use_ok('Data::Pageset::Exponential');
 
-ok my $pager = Data::Pageset::Extended->new(), 'constructor';
+ok my $pager = Data::Pageset::Exponential->new(), 'constructor';
 
 is $pager->total_entries, 0, 'total_entries';
 

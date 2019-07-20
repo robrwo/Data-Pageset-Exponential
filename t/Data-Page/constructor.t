@@ -2,25 +2,25 @@ use warnings;
 use strict;
 use Test::More tests => 23;
 use Test::Exception;
-use_ok('Data::Pageset::Extended');
+use_ok('Data::Pageset::Exponential');
 
-my $page = Data::Pageset::Extended->new(7, 10, 12);
-isa_ok($page, 'Data::Page', 'Data::Pageset::Extended');
+my $page = Data::Pageset::Exponential->new(7, 10, 12);
+isa_ok($page, 'Data::Page', 'Data::Pageset::Exponential');
 
 is($page->first_page, 1, "Adjusted to first possible page");
 
-$page = Data::Pageset::Extended->new(0, 10, -1);
-isa_ok($page, 'Data::Page', 'Data::Pageset::Extended');
+$page = Data::Pageset::Exponential->new(0, 10, -1);
+isa_ok($page, 'Data::Page', 'Data::Pageset::Exponential');
 
 is($page->first_page, 1, "Adjusted to first possible page");
 
 throws_ok {
-  my $page = Data::Pageset::Extended->new(12, -1, 1);
+  my $page = Data::Pageset::Exponential->new(12, -1, 1);
   }
   qr/Must be a positive integer/, "Can't have entries-per-page less than 1";
 
 # The new empty constructor means we might be empty, let's check for sensible defaults
-$page = Data::Pageset::Extended->new;
+$page = Data::Pageset::Exponential->new;
 is($page->entries_per_page,     10);
 is($page->total_entries,        0);
 is($page->entries_on_this_page, 0);

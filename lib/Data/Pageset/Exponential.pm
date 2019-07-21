@@ -6,7 +6,7 @@ use v5.10.1;
 
 use Moo;
 
-use List::Util qw/ all min /;
+use List::Util 1.33 qw/ all min /;
 use PerlX::Maybe;
 use POSIX qw/ ceil floor /;
 use MooX::TypeTiny;

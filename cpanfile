@@ -1,3 +1,4 @@
+requires "List::Util" => "1.33";
 requires "Moo" => "1.006000";
 requires "MooX::TypeTiny" => "0";
 requires "PerlX::Maybe" => "0";

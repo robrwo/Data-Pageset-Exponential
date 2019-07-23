@@ -7,6 +7,9 @@ Revision history for {{ $dist->name }}:
   [Tests]
   - Removed unnecessary module from prereqs report.
 
+  [Other Changes]
+  - Added recommended prerequisites.
+
 v0.2.1    2019-07-21 11:16:26+01:00 Europe/London
   [Bug Fixes]
   - Specified a minimum version for the prereq List::Util.

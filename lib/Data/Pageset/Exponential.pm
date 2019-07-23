@@ -15,6 +15,9 @@ use Types::Standard qw/ is_Int Int ArrayRef is_HashRef /;
 
 use namespace::autoclean;
 
+# RECOMMEND PREREQ: Type::Tiny::XS
+# RECOMMEND PREREQ: Ref::Util::XS
+
 our $VERSION = 'v0.2.2';
 
 =head1 SYNOPSIS

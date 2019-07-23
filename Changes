@@ -1,6 +1,9 @@
 Revision history for {{ $dist->name }}:
 
 {{$NEXT}}
+  [Bug Fixes]
+  - Support hashref in the constructor.
+
   [Tests]
   - Removed unnecessary module from prereqs report.
 

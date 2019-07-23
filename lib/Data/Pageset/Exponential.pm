@@ -11,7 +11,7 @@ use PerlX::Maybe;
 use POSIX qw/ ceil floor /;
 use MooX::TypeTiny;
 use Types::Common::Numeric qw/ PositiveOrZeroInt PositiveInt /;
-use Types::Standard qw/ is_Int Int ArrayRef /;
+use Types::Standard qw/ is_Int Int ArrayRef is_HashRef /;
 
 use namespace::autoclean;
 
@@ -441,6 +441,10 @@ sub change_entries_per_page {
 
 sub BUILDARGS {
     my ( $class, @args ) = @_;
+
+    if (@args == 1 && is_HashRef(@args)) {
+        return $args[0];
+    }
 
     if ( @args && ( @args <= 3 ) && all { is_Int($_) } @args ) {
 

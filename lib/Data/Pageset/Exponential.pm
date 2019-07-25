@@ -484,11 +484,40 @@ sub isa {
 
 =head1 KNOWN ISSUES
 
-=head2 Fake @ISA
+=head2 Differences with Data::Page
 
-This module is based on a complete rewrite of L<Data::Page> using
+This module is intended as a drop-in replacement for L<Data::Page>.
+However, it is based on a complete rewrite of L<Data::Page> using
 L<Moo>, rather than extending it.  Because of that, it needs to fake
 C<@ISA>.  This may break some applications.
+
+Otherwise, it has the following differences:
+
+=over
+
+=item *
+
+The attributes have type constraints.  Invalid data may throw a fatal
+error instead of being ignored.
+
+=item *
+
+Setting the L</current_page> to a value outside the L</first_page> or
+L</last_page> will return the first or last page, instead of that
+value.
+
+=back
+
+=head2 Differences with Data::Pageset
+
+This module can behave like L<Data::Pageset> in C<slide> mode if the
+exponent is set to C<1>:
+
+  my $pager = Data::Pageset::Exponential->new(
+    exponent_max       => 1,
+    pages_per_exponent => 10,
+    pages_per_set      => 10,
+  );
 
 =head1 SEE ALSO
 

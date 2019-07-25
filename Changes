@@ -5,6 +5,10 @@ Revision history for {{ $dist->name }}:
   - Renamed `max_pages_per_set` to `pages_per_set`, and made the former
     a deprecated alias for the latter.
 
+  [Documentation]
+  - Added documentation on notable differences between this model and
+    Data::Page and Data::Pageset.
+
 v0.2.2    2019-07-23 14:50:43+01:00 Europe/London
   [Bug Fixes]
   - Support hashref in the constructor.

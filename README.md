@@ -74,7 +74,7 @@ however, larger numbers will increase the size of ["pages\_in\_set"](#pages_in_s
 
 This is the number of pages per exponent. It defaults to `3`.
 
-## `max_pages_per_set`
+## `pages_per_set`
 
 This is the maximum number of pages in ["pages\_in\_set"](#pages_in_set). It defaults
 to
@@ -86,6 +86,12 @@ to
 which for the default values is 23.
 
 This should be an odd number.
+
+This was renamed from ["max\_pages\_per\_set"](#max_pages_per_set) in v0.3.0.
+
+## `max_pages_per_set`
+
+This is a deprecated alias for ["pages\_per\_set"](#pages_per_set).
 
 # METHODS
 

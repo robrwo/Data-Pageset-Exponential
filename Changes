@@ -1,6 +1,9 @@
 Revision history for {{ $dist->name }}:
 
 {{$NEXT}}
+  [Enhancements]
+  - Renamed `max_pages_per_set` to `pages_per_set`, and made the former
+    a deprecated alias for the latter.
 
 v0.2.2    2019-07-23 14:50:43+01:00 Europe/London
   [Bug Fixes]

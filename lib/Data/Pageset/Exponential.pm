@@ -9,6 +9,7 @@ use Moo;
 use List::Util 1.33 qw/ all min /;
 use PerlX::Maybe;
 use POSIX qw/ ceil floor /;
+use MooX::Aliases;
 use MooX::TypeTiny;
 use Types::Common::Numeric qw/ PositiveOrZeroInt PositiveInt /;
 use Types::Standard qw/ is_Int Int ArrayRef is_HashRef /;
@@ -142,7 +143,7 @@ has pages_per_exponent => (
     default => 3,
 );
 
-=head2 C<max_pages_per_set>
+=head2 C<pages_per_set>
 
 This is the maximum number of pages in L</pages_in_set>. It defaults
 to
@@ -153,11 +154,18 @@ which for the default values is 23.
 
 This should be an odd number.
 
+This was renamed from L</max_pages_per_set> in v0.3.0.
+
+=head2 C<max_pages_per_set>
+
+This is a deprecated alias for L</pages_per_set>.
+
 =cut
 
-has max_pages_per_set => (
+has pages_per_set => (
     is      => 'lazy',
     isa     => PositiveInt,
+    alias   => 'max_pages_per_set',
     builder => sub {
         my ($self) = @_;
         use integer;

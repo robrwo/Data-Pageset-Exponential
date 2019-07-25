@@ -1,5 +1,6 @@
 requires "List::Util" => "1.33";
 requires "Moo" => "1.006000";
+requires "MooX::Aliases" => "0";
 requires "MooX::TypeTiny" => "0";
 requires "PerlX::Maybe" => "0";
 requires "Types::Common::Numeric" => "0";

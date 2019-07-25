@@ -42,9 +42,7 @@ hundreds if not thousands of pages.
 
 The interface is similar to L<Data::Pageset> with sliding pagesets.
 
-=head1 ATTRIBUTES
-
-=head2 C<total_entries>
+=attr C<total_entries>
 
 This is the total number of entries.
 
@@ -58,7 +56,7 @@ has total_entries => (
     default => 0,
 );
 
-=head2 C<entries_per_page>
+=attr C<entries_per_page>
 
 This is the total number of entries per page. It defaults to C<10>.
 
@@ -72,7 +70,7 @@ has entries_per_page => (
     default => 10,
 );
 
-=head2 C<first_page>
+=attr C<first_page>
 
 This returns the first page. It defaults to C<1>.
 
@@ -84,7 +82,7 @@ has first_page => (
     default => 1,
 );
 
-=head2 C<current_page>
+=attr C<current_page>
 
 This is the current page number. It defaults to the L</first_page>.
 
@@ -100,7 +98,7 @@ has current_page => (
     coerce  => sub { floor( $_[0] // 0 ) },
 );
 
-=head2 C<exponent_base>
+=attr C<exponent_base>
 
 This is the base exponent for page sets. It defaults to C<10>.
 
@@ -112,7 +110,7 @@ has exponent_base => (
     default => 10,
 );
 
-=head2 C<exponent_max>
+=attr C<exponent_max>
 
 This is the maximum exponent for page sets. It defaults to C<3>, for
 pages in the thousands.
@@ -131,7 +129,7 @@ has exponent_max => (
     default => 3,
 );
 
-=head2 C<pages_per_exponent>
+=attr C<pages_per_exponent>
 
 This is the number of pages per exponent. It defaults to C<3>.
 
@@ -143,7 +141,7 @@ has pages_per_exponent => (
     default => 3,
 );
 
-=head2 C<pages_per_set>
+=attr C<pages_per_set>
 
 This is the maximum number of pages in L</pages_in_set>. It defaults
 to
@@ -156,7 +154,7 @@ This should be an odd number.
 
 This was renamed from L</max_pages_per_set> in v0.3.0.
 
-=head2 C<max_pages_per_set>
+=attr C<max_pages_per_set>
 
 This is a deprecated alias for L</pages_per_set>.
 
@@ -214,10 +212,6 @@ has series => (
     },
 );
 
-=head1 METHODS
-
-=cut
-
 around current_page => sub {
     my $next = shift;
     my $self = shift;
@@ -234,7 +228,7 @@ around current_page => sub {
     return $page;
 };
 
-=head2 C<entries_on_this_page>
+=method C<entries_on_this_page>
 
 Returns the number of entries on the page.
 
@@ -251,7 +245,7 @@ sub entries_on_this_page {
     }
 }
 
-=head2 C<last_page>
+=method C<last_page>
 
 Returns the number of the last page.
 
@@ -264,7 +258,7 @@ sub last_page {
       : $self->first_page;
 }
 
-=head2 C<first>
+=method C<first>
 
 Returns the index of the first entry on the L</current_page>.
 
@@ -280,7 +274,7 @@ sub first {
     }
 }
 
-=head2 C<last>
+=method C<last>
 
 Returns the index of the last entry on the L</current_page>.
 
@@ -296,7 +290,7 @@ sub last {
     }
 }
 
-=head2 C<previous_page>
+=method C<previous_page>
 
 Returns the number of the previous page.
 
@@ -311,7 +305,7 @@ sub previous_page {
       : undef;
 }
 
-=head2 C<next_page>
+=method C<next_page>
 
 Returns the number of the next page.
 
@@ -377,7 +371,7 @@ around entries_per_page => sub {
     }
 };
 
-=head2 C<pages_in_set>
+=method C<pages_in_set>
 
 Returns an array reference of pages in the page set.
 
@@ -398,7 +392,7 @@ sub pages_in_set {
     ];
 }
 
-=head2 C<previous_set>
+=method C<previous_set>
 
 This returns the first page number of the previous page set, for the
 first exponent.
@@ -416,7 +410,7 @@ sub previous_set {
         : $page;
 }
 
-=head2 C<next_set>
+=method C<next_set>
 
 This returns the first page number of the next page set, for the first
 exponent.

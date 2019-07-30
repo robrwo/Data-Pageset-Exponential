@@ -14,6 +14,12 @@ use MooX::TypeTiny;
 use Types::Common::Numeric qw/ PositiveOrZeroInt PositiveInt /;
 use Types::Standard qw/ is_Int Int ArrayRef is_HashRef /;
 
+=for Pod::Coverage isa
+
+=cut
+
+use asa 'Data::Page';
+
 use namespace::autoclean;
 
 # RECOMMEND PREREQ: Type::Tiny::XS
@@ -462,18 +468,6 @@ sub BUILDARGS {
     }
 
     return {@args};
-}
-
-=for Pod::Coverage isa
-
-=cut
-
-sub isa {
-    my ($self, $class) = @_;
-
-    state $classes = { map { $_ => 1 } qw/ Data::Page / };
-
-    return $classes->{$class} || $self->UNIVERSAL::isa($class);
 }
 
 =head1 KNOWN ISSUES

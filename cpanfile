@@ -5,6 +5,7 @@ requires "MooX::TypeTiny" => "0";
 requires "PerlX::Maybe" => "0";
 requires "Types::Common::Numeric" => "0";
 requires "Types::Standard" => "0";
+requires "asa" => "0";
 requires "namespace::autoclean" => "0";
 requires "perl" => "v5.10.1";
 recommends "Ref::Util::XS" => "0";

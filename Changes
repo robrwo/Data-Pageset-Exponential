@@ -1,6 +1,9 @@
 Revision history for {{ $dist->name }}:
 
 {{$NEXT}}
+  [Enhancements]
+  - @ISA spoofing done through asa module.
+
   [Tests]
   - Added more tests.
 

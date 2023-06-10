@@ -167,6 +167,12 @@ my $pager = Data::Pageset::Exponential->new(
 );
 ```
 
+# SUPPORT FOR OLDER PERL VERSIONS
+
+This module requires Perl v5.10.1 or later.
+
+Future releases may only support Perl versions released in the last ten years.
+
 # SEE ALSO
 
 - [Data::Page](https://metacpan.org/pod/Data%3A%3APage)

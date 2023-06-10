@@ -5,6 +5,8 @@ Revision history for {{ $dist->name }}:
   - Simplified type imports.
 
   [Documentation]
+  - Document support policy for older Perl versions.
+
   - Bump copyright year.
 
   - Fix encoding of links in README.

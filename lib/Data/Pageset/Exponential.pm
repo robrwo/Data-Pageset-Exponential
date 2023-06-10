@@ -506,6 +506,12 @@ exponent is set to C<1>:
     pages_per_set      => 10,
   );
 
+=head1 SUPPORT FOR OLDER PERL VERSIONS
+
+This module requires Perl v5.10.1 or later.
+
+Future releases may only support Perl versions released in the last ten years.
+
 =head1 SEE ALSO
 
 =over

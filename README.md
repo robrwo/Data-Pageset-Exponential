@@ -27,7 +27,7 @@ my $pages = $pager->pages_in_set;
 This is a pager designed for paging through resultsets that contain
 hundreds if not thousands of pages.
 
-The interface is similar to [Data::Pageset](https://metacpan.org/pod/Data::Pageset) with sliding pagesets.
+The interface is similar to [Data::Pageset](https://metacpan.org/pod/Data%3A%3APageset) with sliding pagesets.
 
 # ATTRIBUTES
 
@@ -128,21 +128,21 @@ Returns an array reference of pages in the page set.
 This returns the first page number of the previous page set, for the
 first exponent.
 
-It is added for compatability with [Data::Pageset](https://metacpan.org/pod/Data::Pageset).
+It is added for compatability with [Data::Pageset](https://metacpan.org/pod/Data%3A%3APageset).
 
 ## `next_set`
 
 This returns the first page number of the next page set, for the first
 exponent.
 
-It is added for compatability with [Data::Pageset](https://metacpan.org/pod/Data::Pageset).
+It is added for compatability with [Data::Pageset](https://metacpan.org/pod/Data%3A%3APageset).
 
 # KNOWN ISSUES
 
 ## Differences with Data::Page
 
-This module is intended as a drop-in replacement for [Data::Page](https://metacpan.org/pod/Data::Page).
-However, it is based on a complete rewrite of [Data::Page](https://metacpan.org/pod/Data::Page) using
+This module is intended as a drop-in replacement for [Data::Page](https://metacpan.org/pod/Data%3A%3APage).
+However, it is based on a complete rewrite of [Data::Page](https://metacpan.org/pod/Data%3A%3APage) using
 [Moo](https://metacpan.org/pod/Moo), rather than extending it.  Because of that, it needs to fake
 `@ISA`.  This may break some applications.
 
@@ -156,7 +156,7 @@ value.
 
 ## Differences with Data::Pageset
 
-This module can behave like [Data::Pageset](https://metacpan.org/pod/Data::Pageset) in `slide` mode if the
+This module can behave like [Data::Pageset](https://metacpan.org/pod/Data%3A%3APageset) in `slide` mode if the
 exponent is set to `1`:
 
 ```perl
@@ -169,8 +169,8 @@ my $pager = Data::Pageset::Exponential->new(
 
 # SEE ALSO
 
-- [Data::Page](https://metacpan.org/pod/Data::Page)
-- [Data::Pageset](https://metacpan.org/pod/Data::Pageset)
+- [Data::Page](https://metacpan.org/pod/Data%3A%3APage)
+- [Data::Pageset](https://metacpan.org/pod/Data%3A%3APageset)
 
 # SOURCE
 

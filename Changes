@@ -1,6 +1,9 @@
 Revision history for {{ $dist->name }}:
 
 {{$NEXT}}
+  [Enhanceents]
+  - Simplified type imports.
+
   [Documentation]
   - Bump copyright year.
 

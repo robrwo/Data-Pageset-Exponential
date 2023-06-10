@@ -11,8 +11,7 @@ use PerlX::Maybe;
 use POSIX qw/ ceil floor /;
 use MooX::Aliases;
 use MooX::TypeTiny;
-use Types::Common::Numeric qw/ PositiveOrZeroInt PositiveInt /;
-use Types::Standard qw/ is_Int Int ArrayRef is_HashRef /;
+use Types::Common qw/ is_Int Int ArrayRef is_HashRef PositiveOrZeroInt PositiveInt /;
 
 =for Pod::Coverage isa
 

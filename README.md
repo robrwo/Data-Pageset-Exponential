@@ -190,11 +190,11 @@ feature.
 
 Robert Rothenberg <rrwo@cpan.org>
 
-Test code was adapted from [Data::Page](https://metacpan.org/pod/Data::Page) to ensure compatability.
+Test code was adapted from [Data::Page](https://metacpan.org/pod/Data%3A%3APage) to ensure compatability.
 
 # COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2018-2021 by Robert Rothenberg.
+This software is Copyright (c) 2018-2023 by Robert Rothenberg.
 
 This is free software, licensed under:
 

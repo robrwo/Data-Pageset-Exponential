@@ -1,6 +1,8 @@
 Revision history for {{ $dist->name }}:
 
 {{$NEXT}}
+
+v0.3.3    2023-06-11 10:54:59+01:00 Europe/London
   [Enhanceents]
   - Simplified type imports.
 

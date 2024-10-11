@@ -7,7 +7,7 @@ use v5.20;
 use Moo;
 
 use List::Util 1.33 qw/ all min /;
-use PerlX::Maybe;
+use PerlX::Maybe qw/ maybe /;
 use POSIX qw/ ceil floor /;
 use MooX::Aliases;
 use MooX::TypeTiny;

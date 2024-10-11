@@ -200,7 +200,7 @@ Test code was adapted from [Data::Page](https://metacpan.org/pod/Data%3A%3APage)
 
 # COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2018-2023 by Robert Rothenberg.
+This software is Copyright (c) 2018-2024 by Robert Rothenberg.
 
 This is free software, licensed under:
 

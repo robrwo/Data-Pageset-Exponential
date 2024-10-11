@@ -7,6 +7,9 @@ Revision history for {{ $dist->name }}:
   [Enhancements]
   - The code uses newer Perl syntax features.
 
+  [Documentation]
+  - Update copyright year.
+
 v0.3.3    2023-06-11 10:54:59+01:00 Europe/London
   [Enhanceents]
   - Simplified type imports.

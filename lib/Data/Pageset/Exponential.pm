@@ -2,7 +2,7 @@ package Data::Pageset::Exponential;
 
 # ABSTRACT: Page numbering for very large page numbers
 
-use v5.10.1;
+use v5.20;
 
 use Moo;
 
@@ -12,6 +12,8 @@ use POSIX qw/ ceil floor /;
 use MooX::Aliases;
 use MooX::TypeTiny;
 use Types::Common 2.000000 qw/ is_Int Int ArrayRef is_HashRef PositiveOrZeroInt PositiveInt /;
+
+use experimental qw/ postderef signatures /;
 
 =for Pod::Coverage isa
 
@@ -24,7 +26,7 @@ use namespace::autoclean;
 # RECOMMEND PREREQ: Type::Tiny::XS
 # RECOMMEND PREREQ: Ref::Util::XS
 
-our $VERSION = 'v0.3.4';
+our $VERSION = 'v0.4.0';
 
 =head1 SYNOPSIS
 
@@ -100,7 +102,7 @@ has current_page => (
     isa     => Int,
     lazy    => 1,
     default => \&first_page,
-    coerce  => sub { floor( $_[0] // 0 ) },
+    coerce  => sub($val) { floor( $val // 0 ) },
 );
 
 =attr C<exponent_base>
@@ -169,8 +171,7 @@ has pages_per_set => (
     is      => 'lazy',
     isa     => PositiveInt,
     alias   => 'max_pages_per_set',
-    builder => sub {
-        my ($self) = @_;
+    builder => sub($self) {
         use integer;
         my $n = $self->pages_per_exponent * ( $self->exponent_max + 1 );
         return ($n - 1) * 2 + 1;
@@ -184,9 +185,7 @@ has pages_per_set => (
 has series => (
     is      => 'lazy',
     isa     => ArrayRef [Int],
-    builder => sub {
-        my ($self) = @_;
-
+    builder => sub($self) {
         use integer;
 
         my @series;
@@ -217,14 +216,11 @@ has series => (
     },
 );
 
-around current_page => sub {
-    my $next = shift;
-    my $self = shift;
-
+around current_page => sub($next, $self, @args) {
     # N.B. unlike Data::Page, setting a value outside the first_page
     # or last_page will not return that value.
 
-    my $page = $self->$next(@_);
+    my $page = $self->$next(@args);
 
     return $self->first_page if $page < $self->first_page;
 
@@ -239,9 +235,7 @@ Returns the number of entries on the page.
 
 =cut
 
-sub entries_on_this_page {
-    my ($self) = @_;
-
+sub entries_on_this_page($self) {
     if ( $self->total_entries ) {
         return $self->last - $self->first + 1;
     }
@@ -256,8 +250,7 @@ Returns the number of the last page.
 
 =cut
 
-sub last_page {
-    my ($self) = @_;
+sub last_page($self) {
     return $self->total_entries
       ? ceil( $self->total_entries / $self->entries_per_page )
       : $self->first_page;
@@ -269,8 +262,7 @@ Returns the index of the first entry on the L</current_page>.
 
 =cut
 
-sub first {
-    my ($self) = @_;
+sub first($self) {
     if ( $self->total_entries ) {
         return ( $self->current_page - 1 ) * $self->entries_per_page + 1;
     }
@@ -285,8 +277,7 @@ Returns the index of the last entry on the L</current_page>.
 
 =cut
 
-sub last {
-    my ($self) = @_;
+sub last($self) {
     if ( $self->current_page == $self->last_page ) {
         return $self->total_entries;
     }
@@ -301,8 +292,7 @@ Returns the number of the previous page.
 
 =cut
 
-sub previous_page {
-    my ($self) = @_;
+sub previous_page($self) {
     my $page = $self->current_page;
 
     return $page > $self->first_page
@@ -316,8 +306,7 @@ Returns the number of the next page.
 
 =cut
 
-sub next_page {
-    my ($self) = @_;
+sub next_page($self) {
     my $page = $self->current_page;
 
     return $page < $self->last_page
@@ -329,10 +318,8 @@ sub next_page {
 
 =cut
 
-sub splice {
-    my ( $self, $items ) = @_;
-
-    my $last = min( $self->last, scalar(@$items) );
+sub splice( $self, $items ) {
+    my $last = min( $self->last, scalar( $items->@* ) );
 
     return $last
       ? @{$items}[ $self->first - 1 .. $last - 1 ]
@@ -343,8 +330,7 @@ sub splice {
 
 =cut
 
-sub skipped {
-    my ($self) = @_;
+sub skipped($self) {
     return $self->total_entries
         ? $self->first - 1
         : 0;
@@ -353,13 +339,10 @@ sub skipped {
 # Ideally, we'd use a trigger instead, but Moo does not pass the old
 # value to a trigger.
 
-around entries_per_page => sub {
-    my $next = shift;
-    my $self = shift;
+around entries_per_page => sub($next, $self, @args) {
+    if (@args) {
 
-    if (@_) {
-
-        my $value = shift;
+        my ($value) = @args;
 
         my $first = $self->first;
 
@@ -382,9 +365,7 @@ Returns an array reference of pages in the page set.
 
 =cut
 
-sub pages_in_set {
-    my ($self) = @_;
-
+sub pages_in_set($self) {
     use integer;
 
     my $first = $self->first_page;
@@ -406,9 +387,7 @@ It is added for compatability with L<Data::Pageset>.
 
 =cut
 
-sub previous_set {
-    my ($self) = @_;
-
+sub previous_set($self) {
     my $page = $self->current_page - (2 * $self->pages_per_exponent) - 1;
     return $page < $self->first_page
         ? undef
@@ -424,9 +403,7 @@ It is added for compatability with L<Data::Pageset>.
 
 =cut
 
-sub next_set {
-    my ($self) = @_;
-
+sub next_set($self) {
     my $page = $self->current_page + (2 * $self->pages_per_exponent) - 1;
     return $page > $self->last_page
         ? undef
@@ -437,9 +414,7 @@ sub next_set {
 
 =cut
 
-sub change_entries_per_page {
-    my ($self, $value) = @_;
-
+sub change_entries_per_page($self, $value) {
     $self->entries_per_page($value);
 
     return $self->current_page;
@@ -449,8 +424,7 @@ sub change_entries_per_page {
 
 =cut
 
-sub BUILDARGS {
-    my ( $class, @args ) = @_;
+sub BUILDARGS($class, @args) {
 
     if (@args == 1 && is_HashRef(@args)) {
         return $args[0];
@@ -508,7 +482,7 @@ exponent is set to C<1>:
 
 =head1 SUPPORT FOR OLDER PERL VERSIONS
 
-This module requires Perl v5.10.1 or later.
+Since v0.8.0, the this module requires Perl v5.20 or later.
 
 Future releases may only support Perl versions released in the last ten years.
 

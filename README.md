@@ -4,7 +4,7 @@ Data::Pageset::Exponential - Page numbering for very large page numbers
 
 # VERSION
 
-version v0.3.3
+version v0.4.0
 
 # SYNOPSIS
 
@@ -169,7 +169,7 @@ my $pager = Data::Pageset::Exponential->new(
 
 # SUPPORT FOR OLDER PERL VERSIONS
 
-This module requires Perl v5.10.1 or later.
+Since v0.8.0, the this module requires Perl v5.20 or later.
 
 Future releases may only support Perl versions released in the last ten years.
 

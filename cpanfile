@@ -9,9 +9,10 @@ requires "POSIX" => "0";
 requires "PerlX::Maybe" => "0";
 requires "Types::Common" => "2.000000";
 requires "asa" => "0";
+requires "experimental" => "0";
 requires "integer" => "0";
 requires "namespace::autoclean" => "0";
-requires "perl" => "v5.10.1";
+requires "perl" => "v5.20.0";
 recommends "Ref::Util::XS" => "0";
 recommends "Type::Tiny::XS" => "0";
 

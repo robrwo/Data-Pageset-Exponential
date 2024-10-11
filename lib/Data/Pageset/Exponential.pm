@@ -6,14 +6,14 @@ use v5.20;
 
 use Moo;
 
-use List::Util 1.33 qw/ all min /;
-use PerlX::Maybe qw/ maybe /;
-use POSIX qw/ ceil floor /;
+use List::Util 1.33 qw( all min );
+use PerlX::Maybe    qw( maybe );
+use POSIX           qw( ceil floor );
 use MooX::Aliases;
 use MooX::TypeTiny;
-use Types::Common 2.000000 qw/ is_Int Int ArrayRef is_HashRef PositiveOrZeroInt PositiveInt /;
+use Types::Common 2.000000 qw( is_Int Int ArrayRef is_HashRef PositiveOrZeroInt PositiveInt );
 
-use experimental qw/ postderef signatures /;
+use experimental qw( postderef signatures );
 
 =for Pod::Coverage isa
 
@@ -174,7 +174,7 @@ has pages_per_set => (
     builder => sub($self) {
         use integer;
         my $n = $self->pages_per_exponent * ( $self->exponent_max + 1 );
-        return ($n - 1) * 2 + 1;
+        return ( $n - 1 ) * 2 + 1;
     },
 );
 
@@ -209,14 +209,14 @@ has series => (
 
         }
 
-        my @prevs = map { -$_ } reverse @series[1..$#series];
+        my @prevs = map { -$_ } reverse @series[ 1 .. $#series ];
 
-
-        return [@prevs, @series];
+        return [ @prevs, @series ];
     },
 );
 
-around current_page => sub($next, $self, @args) {
+around current_page => sub( $next, $self, @args ) {
+
     # N.B. unlike Data::Page, setting a value outside the first_page
     # or last_page will not return that value.
 
@@ -332,14 +332,14 @@ sub splice( $self, $items ) {
 
 sub skipped($self) {
     return $self->total_entries
-        ? $self->first - 1
-        : 0;
+      ? $self->first - 1
+      : 0;
 }
 
 # Ideally, we'd use a trigger instead, but Moo does not pass the old
 # value to a trigger.
 
-around entries_per_page => sub($next, $self, @args) {
+around entries_per_page => sub( $next, $self, @args ) {
     if (@args) {
 
         my ($value) = @args;
@@ -374,7 +374,7 @@ sub pages_in_set($self) {
 
     return [
         grep { $first <= $_ && $_ <= $last }
-        map { $page + $_ } @{ $self->series }
+        map  { $page + $_ } @{ $self->series }
     ];
 }
 
@@ -388,10 +388,10 @@ It is added for compatability with L<Data::Pageset>.
 =cut
 
 sub previous_set($self) {
-    my $page = $self->current_page - (2 * $self->pages_per_exponent) - 1;
+    my $page = $self->current_page - ( 2 * $self->pages_per_exponent ) - 1;
     return $page < $self->first_page
-        ? undef
-        : $page;
+      ? undef
+      : $page;
 }
 
 =method C<next_set>
@@ -404,17 +404,17 @@ It is added for compatability with L<Data::Pageset>.
 =cut
 
 sub next_set($self) {
-    my $page = $self->current_page + (2 * $self->pages_per_exponent) - 1;
+    my $page = $self->current_page + ( 2 * $self->pages_per_exponent ) - 1;
     return $page > $self->last_page
-        ? undef
-        : $page;
+      ? undef
+      : $page;
 }
 
 =for Pod::Coverage change_entries_per_page
 
 =cut
 
-sub change_entries_per_page($self, $value) {
+sub change_entries_per_page( $self, $value ) {
     $self->entries_per_page($value);
 
     return $self->current_page;
@@ -424,18 +424,19 @@ sub change_entries_per_page($self, $value) {
 
 =cut
 
-sub BUILDARGS($class, @args) {
+sub BUILDARGS( $class, @args ) {
 
-    if (@args == 1 && is_HashRef(@args)) {
+    if ( @args == 1 && is_HashRef(@args) ) {
         return $args[0];
     }
 
     if ( @args && ( @args <= 3 ) && all { is_Int($_) } @args ) {
 
         return {
-                  total_entries    => $args[0],
-            maybe entries_per_page => $args[1],
-            maybe current_page     => $args[2],
+            total_entries => $args[0],
+            maybe
+              entries_per_page => $args[1],
+            maybe current_page => $args[2],
         };
 
     }

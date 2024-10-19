@@ -4,7 +4,7 @@ Data::Pageset::Exponential - Page numbering for very large page numbers
 
 # VERSION
 
-version v0.4.0
+version v0.4.1
 
 # SYNOPSIS
 

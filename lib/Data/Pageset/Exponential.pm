@@ -26,7 +26,7 @@ use namespace::autoclean;
 # RECOMMEND PREREQ: Type::Tiny::XS
 # RECOMMEND PREREQ: Ref::Util::XS
 
-our $VERSION = 'v0.4.1';
+our $VERSION = 'v0.4.2';
 
 =head1 SYNOPSIS
 

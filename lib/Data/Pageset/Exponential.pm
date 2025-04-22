@@ -505,6 +505,13 @@ L<Data::Pageset>
 
 Test code was adapted from L<Data::Page> to ensure compatability.
 
+=head1 append:BUGS
+
+=head2 Reporting Security Vulnerabilities
+
+Security issues should not be reported on the bugtracker website.  Please see F<SECURITY.md> for instructions how to
+report security vulnerabilities
+
 =cut
 
 1;

@@ -6,6 +6,9 @@ Revision history for {{ $dist->name }}:
 
   - Updated security policy.
 
+  [Tests]
+  - Added author more tests.
+
 v0.4.1    2025-04-22 19:37:17+01:00 Europe/London
   [Documentation]
   - Add a security policy.

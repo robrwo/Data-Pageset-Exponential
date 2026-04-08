@@ -181,7 +181,7 @@ Future releases may only support Perl versions released in the last ten years.
 # SOURCE
 
 The development version is on github at [https://github.com/robrwo/Data-Pageset-Exponential](https://github.com/robrwo/Data-Pageset-Exponential)
-and may be cloned from [git://github.com/robrwo/Data-Pageset-Exponential.git](git://github.com/robrwo/Data-Pageset-Exponential.git)
+and may be cloned from [https://github.com/robrwo/Data-Pageset-Exponential.git](https://github.com/robrwo/Data-Pageset-Exponential.git)
 
 # BUGS
 

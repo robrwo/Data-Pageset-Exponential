@@ -11,6 +11,9 @@ Revision history for {{ $dist->name }}:
   [Tests]
   - Added author more tests.
 
+  [Other]
+  - Added doap.xml metadata to the distribution.
+
 v0.4.1    2025-04-22 19:37:17+01:00 Europe/London
   [Documentation]
   - Add a security policy.
